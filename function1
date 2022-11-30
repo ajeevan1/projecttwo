@@ -11,4 +11,26 @@ import string
 engine = create_engine('sqlite://world.sqlite')
 # Connecting to database
 conn = engine.connect()
+# Read the metadata from the existing database.
+DBInfo=MetaData(engine)
 
+# Auto-creating the country,city and language object basedon the metadata read into the DBInfo
+country=Table('country', DBInfo, autoload=True)
+city=Table('city', DBInfo, autoload=True)
+language=Table('countrylanguage', DBInfo, autoload=True)
+
+# Function 1: User inputs continent, results displays all the countries belonging to that continent with some details
+inp = input('Enter your continent of choice:') 
+inp1=string.capwords(inp) # continent names in database have first letter capital 
+if len(inp1)!= 0: #no results if no input is given
+    print("List of countries with their details located in ", inp1,"are listed below")
+
+    query=select([country.c.Code, country.c.Name, country.c.Continent,country.c.IndepYear,country.c.Population,country.c.GovernmentForm,])\
+             .where(country.c.Continent== inp1)\
+             .order_by(desc(country.c.Population))\
+             
+    result = conn.execute(query)
+    for row in result:
+        print(row)
+else:
+    print('No input was provided. Please provide a valid continent name')
