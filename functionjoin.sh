@@ -40,18 +40,10 @@ city=Table('city', DBInfo, autoload=True)
 language=Table('countrylanguage', DBInfo, autoload=True)
 
 ##**Using join**
-
-
-
 ##1. User inputs country of their choice
-
-
-
 ##2. Function binds the country table and countrylanguage table and extracts only the official language of that country from countrylanguage table
-
-
-
 ##3. Finally the result shows details of the inputted country with added official language detail from the countrylanguage table
+
 
 inp = input('Enter country of choice (please enter full name of the country you are interested):') 
 
