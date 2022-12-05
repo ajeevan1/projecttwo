@@ -11,6 +11,9 @@ import string
 engine = create_engine('sqlite://world.sqlite')
 # Connecting to database
 conn = engine.connect()
+# Read the metadata from the existing database.
+#  Since the database already exists and has tables defined, we can create Python objects based on these automatically.
+DBInfo=MetaData(engine)
 
 # Auto-creating the country,city and language object basedon the metadata read into the DBInfo.
 country=Table('country', DBInfo, autoload=True)
